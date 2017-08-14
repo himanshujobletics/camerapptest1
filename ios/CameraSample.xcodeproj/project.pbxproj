@@ -39,6 +39,7 @@
 		615D138174E9465F96F48FBE /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 164FA806E4D8418688FE71D1 /* libRNFetchBlob.a */; };
 		3DDDFD43A076491C822080FC /* libVydiaRNFileUploader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 149C2E55BC694F2C965CB670 /* libVydiaRNFileUploader.a */; };
 		FE30E8A57B4D4AADA3859806 /* libRCTFileUploader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6E34EE99A64843B6B7DA00 /* libRCTFileUploader.a */; };
+		4E750728E4D7408CB71BF408 /* libRNUploader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E867677245470AA9F28A9E /* libRNUploader.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -309,6 +310,8 @@
 		149C2E55BC694F2C965CB670 /* libVydiaRNFileUploader.a */ = {isa = PBXFileReference; name = "libVydiaRNFileUploader.a"; path = "libVydiaRNFileUploader.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		EBE2B80D0C71474280D663D1 /* RCTFileUploader.xcodeproj */ = {isa = PBXFileReference; name = "RCTFileUploader.xcodeproj"; path = "../node_modules/react-native-file-uploader/ios/RCTFileUploader.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		4A6E34EE99A64843B6B7DA00 /* libRCTFileUploader.a */ = {isa = PBXFileReference; name = "libRCTFileUploader.a"; path = "libRCTFileUploader.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		3EB24FD25257494BAB61D5F4 /* RNUploader.xcodeproj */ = {isa = PBXFileReference; name = "RNUploader.xcodeproj"; path = "../node_modules/react-native-uploader/ios/RNUploader.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		86E867677245470AA9F28A9E /* libRNUploader.a */ = {isa = PBXFileReference; name = "libRNUploader.a"; path = "libRNUploader.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +342,7 @@
 				615D138174E9465F96F48FBE /* libRNFetchBlob.a in Frameworks */,
 				3DDDFD43A076491C822080FC /* libVydiaRNFileUploader.a in Frameworks */,
 				FE30E8A57B4D4AADA3859806 /* libRCTFileUploader.a in Frameworks */,
+				4E750728E4D7408CB71BF408 /* libRNUploader.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +533,7 @@
 				250BB2E2707045D696269C96 /* RNFetchBlob.xcodeproj */,
 				FF4CBFD9C0884309A82C7ECE /* VydiaRNFileUploader.xcodeproj */,
 				EBE2B80D0C71474280D663D1 /* RCTFileUploader.xcodeproj */,
+				3EB24FD25257494BAB61D5F4 /* RNUploader.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1114,6 +1119,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1141,6 +1147,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1235,6 +1242,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1274,6 +1282,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1306,6 +1315,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CameraSample-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1330,6 +1340,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

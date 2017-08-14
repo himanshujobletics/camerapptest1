@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     width: 10,
   },
 });
-const uploadURL = "http://10.0.1.198:8000/answer";
+const uploadURL = 'http://10.0.1.198:8000/answer';
 
 export default class CameraSample extends React.Component {
   constructor(props) {
@@ -86,15 +86,19 @@ export default class CameraSample extends React.Component {
      if (this.camera) {
        this.camera.capture({mode: Camera.constants.CaptureMode.video})
            .then((data) =>
-              // const settings = {
-              //   data.path,
-              //   uploadURL
-              // };
-              Native.NativeModules.FileUploader.upload({
-                uri:data.path,
-                uploadURL:"http://10.0.1.198:8000/answer"
-              }, (err, res) => {
-                  alert(res);
+           RNFetchBlob.fetch('POST', uploadURL, {
+               'videoFile': JSON.stringify({
+                 path : data.path
+               }),
+               'Content-Type' : 'application/octet-stream',
+               // Change BASE64 encoded data to a file path with prefix `RNFetchBlob-file://`.
+               // Or simply wrap the file path with RNFetchBlob.wrap().
+             }, RNFetchBlob.wrap(data.path))
+              .then((res) => {
+               console.log(res.text())
+              })
+              .catch((err) => {
+               // error handling ..
               })
             )
            .catch(err => console.error(err));
