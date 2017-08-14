@@ -1,6 +1,7 @@
 package com.camerasample;
 
 import com.facebook.react.ReactActivity;
+import com.farmisen.react_native_file_uploader.RCTFileUploaderPackage;
 
 public class MainActivity extends ReactActivity {
 

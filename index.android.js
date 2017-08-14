@@ -5,9 +5,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  AppRegistry
+  AppRegistry,
+  NativeModules,
+  Native
 } from 'react-native';
 import Camera from 'react-native-camera';
+import RNFetchBlob from 'react-native-fetch-blob';
+import FileUploader from 'react-native-file-uploader';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -53,6 +57,8 @@ const styles = StyleSheet.create({
     width: 10,
   },
 });
+const uploadURL = "http://10.0.1.198:8000/answer";
+
 export default class CameraSample extends React.Component {
   constructor(props) {
     super(props);
@@ -77,102 +83,26 @@ export default class CameraSample extends React.Component {
   }
 
   startRecording = () => {
-    fetch('http://localhost:8000/answer',{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        dummy:'dummy data'
-      })
-    }).then(function(response) {
-      if(response.status != 200) {
-        alert("ERROR: "+response.status);
-      }
-    });
-  //  if (this.camera) {
-  //    this.camera.capture({mode: Camera.constants.CaptureMode.video})
-  //        .then((data) =>
-  //        fetch(\'http://localhost:8000/answer',{
-  //                method: 'POST',
-  //                headers: {
-  //                    'Accept':'application/json',
-  //                    'Content-Type':'application/json'
-  //                  },
-  //                body: JSON.stringify({
-  //                  dummy:'hey'
-  //                })
-  //                }
-  //             ))
-  //        .catch(err => console.error(err));
-  //    this.setState({
-  //      isRecording: true
-  //    });
-  //  }
- }
-  // startRecording = () => {
-  //   if(this.camera) {
-  //     this.camera.capture({mode: Camera.constants.CaptureMode.video})
-  //     .then((data) =>
-  //           fetch('http://localhost:8000/answer',{
-  //                   method: 'POST',
-  //                   headers: {
-  //                       'Accept':'application/json',
-  //                       'Content-Type':'application/json'
-  //                     },
-  //                   body: data.path
-  //                   }
-  //                )
-  //           ).catch(err => alert(err));
-  //           this.setState({
-  //             isRecording: true
-  //       });
-  //   }
-  // }
-//   startRecording = () => {
-//     if (this.camera) {
-//       this.camera.capture({mode: Camera.constants.CaptureMode.video})
-//           .then((data) =>
-//               fetch('http://localhost:8000/answer',{
-//                 method:'POST',
-//                 headers: {
-//                   'Accept': 'application/json',
-//                   'Content-Type':'application/json'
-//                 },
-//                 body: data.path
-//               }).then(function(resp) {
-//                   if(resp.status !== 200) {
-//                     alert('Problem: '+resp.status);
-//                     return;
-//                   }
-//               });
-//           )
-//
-//           //  alert(data.path))
-//         //   RNFetchBlob.fetch('POST', 'https://127.0.0.1:8000/answer', {
-//         //   'Answer': JSON.stringify({
-//         //     path : data.path,
-//         //     mode : 'add',
-//         //     autorename : true,
-//         //     mute : false
-//         //   }),
-//         //   'Content-Type' : 'application/octet-stream',
-//         //   // Change BASE64 encoded data to a file path with prefix `RNFetchBlob-file://`.
-//         //   // Or simply wrap the file path with RNFetchBlob.wrap().
-//         // }, RNFetchBlob.wrap(data.path)))
-//   // .then((res) => {
-//   //   console.log(res.text())
-//   // })
-//   // .catch((err) => {
-//   //   // error handling ..
-//   // })//)
-// //          .catch(err => console.error(err));
-//       this.setState({
-//         isRecording: true
-//       });
-//     }
-//   }
+     if (this.camera) {
+       this.camera.capture({mode: Camera.constants.CaptureMode.video})
+           .then((data) =>
+              // const settings = {
+              //   data.path,
+              //   uploadURL
+              // };
+              Native.NativeModules.FileUploader.upload({
+                uri:data.path,
+                uploadURL:"http://10.0.1.198:8000/answer"
+              }, (err, res) => {
+                  alert(res);
+              })
+            )
+           .catch(err => console.error(err));
+       this.setState({
+         isRecording: true
+       });
+     }
+   }
   stopRecording = () => {
     if (this.camera) {
       this.camera.stopCapture()
