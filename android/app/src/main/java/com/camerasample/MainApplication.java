@@ -3,6 +3,7 @@ package com.camerasample;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.burlap.filetransfer.FileTransferPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.facebook.react.ReactNativeHost;
@@ -25,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FileTransferPackage(),
             new RNFetchBlobPackage(),
             new RCTCameraPackage(),
             new RCTFileUploaderPackage() 

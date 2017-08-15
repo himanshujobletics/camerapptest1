@@ -12,6 +12,9 @@ import {
 import Camera from 'react-native-camera';
 import RNFetchBlob from 'react-native-fetch-blob';
 import FileUploader from 'react-native-file-uploader';
+var FileUpload = require('NativeModules').FileUpload;
+
+var RNUploader = NativeModules.RNUploader;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
     width: 10,
   },
 });
-const uploadURL = 'http://10.0.1.198:8000/answer';
+const uploadURL = 'http://10.0.1.196:8000/answer';
 
 export default class CameraSample extends React.Component {
   constructor(props) {
