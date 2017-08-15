@@ -12,6 +12,9 @@ import {
 import Camera from 'react-native-camera';
 import RNFetchBlob from 'react-native-fetch-blob';
 import FileUploader from 'react-native-file-uploader';
+var FileUpload = require('NativeModules').FileUpload;
+
+var RNUploader = NativeModules.RNUploader;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -57,8 +60,43 @@ const styles = StyleSheet.create({
     width: 10,
   },
 });
-const uploadURL = 'http://10.0.1.198:8000/answer';
+const uploadURL = 'http://10.0.1.196:8000/answer';
+const doUpload= function (data) {
+  alert("in function");
+	let files =
+		{
+			name: 'file1',
+			filename: 'image1.mp4',
+			filepath: data.path,  // image from camera roll/assets library
+			filetype: 'video/mp4',
+		};
 
+  alert("step 1")
+	let opts = {
+		url: 'http://10.0.1.196:8000/answer',
+		files: files,
+		method: 'POST',                             // optional: POST or PUT
+		// headers: { 'Accept': 'application/json' },  // optional
+		// params: { 'user_id': 1 },                   // optional
+	};
+  alert("step2"+RNUploader)
+	RNUploader.upload( opts, (err, response) => {
+		if( err ){
+			alert(err);
+
+			return;
+		}
+    else{
+      alert("success")
+    }
+
+		// let status = response.status;
+		// let responseString = response.data;
+		// let json = JSON.parse( responseString );
+
+		console.log('upload complete with status ' + status);
+	});
+}
 export default class CameraSample extends React.Component {
   constructor(props) {
     super(props);
@@ -85,26 +123,54 @@ export default class CameraSample extends React.Component {
   startRecording = () => {
      if (this.camera) {
        this.camera.capture({mode: Camera.constants.CaptureMode.video})
-           .then((data) =>
-           RNFetchBlob.fetch('POST', uploadURL, {
-               'videoFile': JSON.stringify({
-                 path : data.path
-               }),
-               'Content-Type' : 'application/octet-stream',
-               // Change BASE64 encoded data to a file path with prefix `RNFetchBlob-file://`.
-               // Or simply wrap the file path with RNFetchBlob.wrap().
-             }, RNFetchBlob.wrap(data.path))
-              .then((res) => {
+           .then((data) =>{
+            var obj = {
+            uploadUrl: 'http://10.0.1.196:8000/answer',
+            method: 'POST', // default 'POST',support 'POST' and 'PUT'
+            headers: {
+              'Accept': 'application/json',
+            },
+            fields: {
+                'hello': 'world',
+            },
+            files: [
+              {
+                name: 'answer', // optional, if none then `filename` is used instead
+                filename: 'answer.mp4', // require, file name
+                filepath: data.path, // require, file absoluete path
+                filetype: 'video/mp4', // options, if none, will get mimetype from `filepath` extension
+              },
+            ]
+        };
+        alert("object made"+FileUpload)
+        FileUpload.upload(obj, function(err, result) {
+          alert('upload:', err, result);
+        })
+            //doUpload(data)
+          //  RNFetchBlob.fetch('POST', uploadURL ,{
+          //       'Content-Type' : 'video/mp4'
+          //     },
+          //     {data:RNFetchBlob.wrap(data.path)}
+           //
+
+                // JSON.stringify({
+                // data:RNFetchBlob.wrap(data.path),
+                // type:'application/mp4'
+                // })
+                // }
+
+          })
+               .then((res) => {
                console.log(res.text())
               })
               .catch((err) => {
                // error handling ..
               })
-            )
-           .catch(err => console.error(err));
-       this.setState({
-         isRecording: true
-       });
+
+           //.catch(err => console.error(err));
+      //      this.setState({
+      //    isRecording: true
+      //  });
      }
    }
   stopRecording = () => {
