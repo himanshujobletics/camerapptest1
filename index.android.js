@@ -83,34 +83,34 @@ export default class CameraSample extends React.Component {
   }
 
   startRecording = () => {
-     if (this.camera) {
-       this.camera.capture({mode: Camera.constants.CaptureMode.video})
-           .then((data) =>
-           RNFetchBlob.fetch('POST', uploadURL, {
-               'videoFile': JSON.stringify({
-                 path : data.path
-               }),
-               'Content-Type' : 'application/octet-stream',
-               // Change BASE64 encoded data to a file path with prefix `RNFetchBlob-file://`.
-               // Or simply wrap the file path with RNFetchBlob.wrap().
-             }, RNFetchBlob.wrap(data.path))
-              .then((res) => {
-               console.log(res.text())
-              })
-              .catch((err) => {
-               // error handling ..
-              })
-            )
-           .catch(err => console.error(err));
-       this.setState({
-         isRecording: true
-       });
-     }
-   }
+        if (this.camera) {
+          this.camera.capture({mode: Camera.constants.CaptureMode.video})
+              .then((data) => { //alert(data.path)
+              const settings = {
+                uri:data.path,
+                uploadUrl:'http://10.0.0.27:8000/answer',
+                method: 'POST', // default to 'POST'
+                fileName: 'answer', // default to 'yyyyMMddhhmmss.xxx'
+                fieldName: 'video', // default to 'file'
+                contentType: 'video/mp4' // default to 'application/octet-stream'
+                };
+                FileUploader.upload(settings, (err, res) => {
+                  // handle result
+                  alert("done")
+                });
+                }
+              )
+              .catch(err => console.error(err));
+          this.setState({
+            isRecording: true
+          });
+        }
+      }
+
   stopRecording = () => {
     if (this.camera) {
       this.camera.stopCapture()
-       .then((data) => alert(data.path))
+       .then((data) => console.log(data.path))
       //fetch('https://localhost:8000/answer', {
       //       method: 'POST',
       //       // headers: {
