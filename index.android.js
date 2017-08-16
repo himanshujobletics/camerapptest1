@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     width: 10,
   },
 });
-const uploadURL = 'http://10.0.1.196:8000/answer';
 
 export default class CameraSample extends React.Component {
   constructor(props) {
@@ -91,7 +90,7 @@ export default class CameraSample extends React.Component {
               .then((data) => { //alert(data.path)
               const settings = {
                 uri:data.path,
-                uploadUrl:'http://10.0.0.27:8000/answer',
+                uploadUrl:'http://172.20.20.20:8000/answer',
                 method: 'POST', // default to 'POST'
                 fileName: 'answer', // default to 'yyyyMMddhhmmss.xxx'
                 fieldName: 'video', // default to 'file'
