@@ -91,12 +91,17 @@ export default class CameraSample extends React.Component {
               .then((data) => { //alert(data.path)
               const settings = {
                 uri:data.path,
-                uploadUrl:'http://10.0.0.27:8000/answer',
+                uploadUrl:'http://10.0.1.196:8000/answer',
                 method: 'POST', // default to 'POST'
-                fileName: 'answer', // default to 'yyyyMMddhhmmss.xxx'
+                fileName: 'answer.mp4', // default to 'yyyyMMddhhmmss.xxx'
                 fieldName: 'video', // default to 'file'
-                contentType: 'video/mp4' // default to 'application/octet-stream'
+                contentType: 'multipart/form-data', // default to 'application/octet-stream'
+                data:{
+                  candidatename:'test1',
+                  qid:"1"
+                }
                 };
+
                 FileUploader.upload(settings, (err, res) => {
                   // handle result
                   alert("done")
@@ -110,25 +115,14 @@ export default class CameraSample extends React.Component {
         }
       }
 
-  stopRecording = () => {
-    if (this.camera) {
-      this.camera.stopCapture()
-       .then((data) => console.log(data.path))
-      //fetch('https://localhost:8000/answer', {
-      //       method: 'POST',
-      //       // headers: {
-      //       //   'Accept': 'application/json',
-      //       //   'Content-Type': 'application/json',
-      //       // },
-      //       body: JSON.stringify({
-      //         firstParam: data.path
-      //       })
-      //     }));//);
-      this.setState({
-        isRecording: false
-      });
-    }
-  }
+      stopRecording = () => {
+         if (this.camera) {
+           this.camera.stopCapture();
+           this.setState({
+             isRecording: false
+           });
+         }
+       }
   switchType = () => {
     let newType;
     const { back, front } = Camera.constants.Type;
